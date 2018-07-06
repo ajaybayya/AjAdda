@@ -1,0 +1,23 @@
+$breakpoints: (
+  'mobile': "(max-width: 767px)",
+  'tablet-up': "(min-width: 768px)",
+  'tablet-only': "(min-width: 768px ) and (max-width: 1024px)",
+  'device-only': "(max-width: 1024px)",
+  'desktop': "(min-width: 1025px)", 
+  'medium': "(min-width: 1200px)",
+  'large': "(min-width: 1401px)",
+  'wide': "(min-width: 1601px)",
+  'portrait': "(orientation: portrait)",
+  'landscape': "(orientation: landscape)"
+);
+
+@mixin respond-to($name) {
+  @if map-has-key($breakpoints, $name) {
+    @media #{(map-get($breakpoints, $name))} {
+      @content;
+    }
+  }
+  @else {
+    @warn "Missing `#{$breakpoint}` from map ";
+  }
+}

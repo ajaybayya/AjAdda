@@ -1,0 +1,160 @@
+
+// Ellipsis text
+@mixin ellipsis($truncation-boundary) {
+    max-width: $truncation-boundary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+//#########################################################################
+
+// Animations
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }  
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+// Usage
+// @include keyframes(fade-out) {
+//     0% { opacity: 1; }
+//     90% { opacity: 0; }
+// }
+
+//#########################################################################
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  animation: #{$str};
+}
+// Usage
+// .foo {
+//     @include animation('fade-out 5s 3');
+// }
+
+//#########################################################################
+
+// External Fonts
+@mixin font-face($font-name, $file-name, $weight: normal, $style: normal) { 
+  @font-face {
+    font-family: quote($font-name);
+    src: url($file-name + '.eot');
+    src: url($file-name + '.eot?#iefix')  format('embedded-opentype'),
+       url($file-name + '.woff') format('woff'),
+       url($file-name + '.ttf')  format('truetype'),
+       url($file-name + '.svg##{$font-name}')  format('svg');
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+// Usage
+// @include font-face('gotham', '/fonts/gotham');
+// @include font-face('gotham', '/fonts/gotham', 'bold', 'italic');
+
+//#########################################################################
+
+// font sizes
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+// Usage:
+// @include font-size(14px)
+
+//#########################################################################
+
+// Padding mixin
+@mixin padding($top, $right, $bottom, $left) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left;
+}
+// Usage
+// @include padding(20px, 10px, 20px, 10px);
+
+//#########################################################################
+
+// Margin mixin
+@mixin margin($top, $right, $bottom, $left) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+}
+// Usage
+// @include margin(20px, 10px, 20px, 10px);
+
+//#########################################################################
+
+// Define vertical, horizontal, or both position
+@mixin center($position) {
+  position: absolute;
+  
+  @if $position == 'vertical' {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  @else if $position == 'horizontal' {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translate(-50%);
+  }
+  @else if $position == 'both' {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+// Usage
+// .foo {
+//    @include center(both);
+// }
+
+//#########################################################################
+
+// Placeholder 
+@mixin input-placeholder {
+    &:-moz-placeholder { 
+        @content; 
+    }
+    &::-moz-placeholder { 
+        @content; 
+    }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+}
+// Usage
+// input, textarea {  
+//     @include input-placeholder {
+//         color: $grey;
+//     }
+// }
+
+//#########################################################################
+
+@mixin border-radius ($val...) {
+    -webkit-border-radius: $val;
+    -ms-border-radius: $val;
+    border-radius: $val;
+}
+// Usage
+// .foo{
+//    @include border-radius(10px 4px 7px 0);
+// }
